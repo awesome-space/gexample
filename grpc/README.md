@@ -18,19 +18,19 @@
 
 ## 编写 proto 文件
 
-[点击查看 proto 文件](https://grpc.io/)
+[点击查看 proto 文件](proto/ping.proto)
 
 ## 生成 message 代码
 
 protoc --go_out=. ping.proto 
 
 
-[点击查看 ping.db.go 文件](./servcer/ping.db.go)
+[点击查看 ping.db.go 文件](server/ping.pb.go)
 
 ## 生成 rpc 代码
 
 protoc --go-rpc_out=. ping.proto
 
-[点击查看 ping_grpc.db.go 文件](./servcer/ping_grpc.db.go)
+[点击查看 ping_grpc.db.go 文件](server/ping_grpc.pb.go)
 
 
