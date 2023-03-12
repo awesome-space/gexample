@@ -6,7 +6,7 @@
 
 ## proto 文件
 
-<a href="https://protobuf.dev/getting-started/gotutorial/" target="_blank">【Go 语言】 编写参考</a>
+<a href="https://protobuf.dev/getting-started/gotutorial/" target="_blank">【Go 语言】 message 消息编写参考</a>
 
 
 ```protobuf
