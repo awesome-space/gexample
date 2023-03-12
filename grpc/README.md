@@ -1,8 +1,7 @@
-> <a href="https://grpc.io/docs/languages/go/quickstart/" target="_blank">【Go 语言】 grpc 快速开始</a>
-<br>
-<a href="https://grpc.io/docs/languages/go/basics/#defining-the-service" target="_blank">【Go 语言】 service 编写参考</a>
-<br>
-<a href="https://protobuf.dev/getting-started/gotutorial/" target="_blank">【Go 语言】 message 消息编写参考</a>
+参考文章 :
+1. <a href="https://grpc.io/docs/languages/go/quickstart/" target="_blank">【Go 语言】 grpc 快速开始</a>
+2. <a href="https://grpc.io/docs/languages/go/basics/#defining-the-service" target="_blank">【Go 语言】 service 编写参考</a>
+3. <a href="https://protobuf.dev/getting-started/gotutorial/" target="_blank">【Go 语言】 message 消息编写参考</a>
 
 
 利用 grpc 写一个 HelloWorld 服务，HellowWorld 服务中包含一个 SayHello 的方法，接受一个 name 参数，返回一个 massage
