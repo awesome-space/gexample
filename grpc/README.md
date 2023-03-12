@@ -1,30 +1,45 @@
-## grpc 环境搭建
 
-grpc 采用 `proto buffer` 进行服务定义以及数据编码，所以我们要安装 `proto buffer`
+gRPC是一款高性能、开源的远程过程调用（RPC）框架，由Google开发，支持多种编程语言和平台。
 
-### proto buffer 安装
-官网：https://protobuf.dev/
-
-安装 protoc https://github.com/protocolbuffers/protobuf/releases
-
-![](./assets/protoc.png)
-
-### 安装 grpc 
-
-官网：https://grpc.io/
-
-安装对应工具：
-
-![](./assets/grpc.png) 
-
-选择 Go 语言
+gRPC使用 Protocol Buffers 作为其默认的序列化协议，支持多种编程语言，如C++、Java、Python、Go等。
 
 
-## grpc 学习
+grpc 官网：https://grpc.io/
+
+![](./assets/grpc.png)
+
+
+golang 使用 grpc 快速开始：
+https://grpc.io/docs/languages/go/quickstart/
+
+
+
+**环境搭建**
+
+1. 需要 go 环境
+2. 需要安装 proto buffer 编译器 protoc 
+
+    官网：https://protobuf.dev/
+
+    安装 protoc https://github.com/protocolbuffers/protobuf/releases
+
+    ![](./assets/protoc.png)
+
+3. 安装 go 代码生成器
+
+    ```shell
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+    ```
+
+
+编写 proto 文件
+
 
 ## 编写 proto 文件
 
 [点击查看 proto 文件](proto/ping.proto)
+
 
 ## 生成 message 代码
 

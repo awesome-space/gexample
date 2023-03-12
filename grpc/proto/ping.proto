@@ -2,7 +2,7 @@ syntax = "proto3";
 
 
 // 生成的 go 文件放在的位置以及包名
-option go_package = "grpc/server";
+option go_package = "grpc;server";
 
 
 service Ping {
