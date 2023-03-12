@@ -6,6 +6,9 @@
 
 ## proto 文件
 
+
+<a href="https://grpc.io/docs/languages/go/basics/#defining-the-service" target="_blank">【Go 语言】 service 编写参考</a>
+
 <a href="https://protobuf.dev/getting-started/gotutorial/" target="_blank">【Go 语言】 message 消息编写参考</a>
 
 
