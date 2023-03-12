@@ -1,11 +1,15 @@
-## protobuf 
+## grpc 环境搭建
+
+grpc 采用 `proto buffer` 进行服务定义以及数据编码，所以我们要安装 `proto buffer`
+
+### proto buffer 安装
 官网：https://protobuf.dev/
 
 安装 protoc https://github.com/protocolbuffers/protobuf/releases
 
 ![](./assets/protoc.png)
 
-## 安装 grpc 
+### 安装 grpc 
 
 官网：https://grpc.io/
 
@@ -15,6 +19,8 @@
 
 选择 Go 语言
 
+
+## grpc 学习
 
 ## 编写 proto 文件
 
