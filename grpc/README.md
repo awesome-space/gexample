@@ -1,57 +1,42 @@
 
-gRPC是一款高性能、开源的远程过程调用（RPC）框架，由Google开发，支持多种编程语言和平台。
+## go 使用 grpc
 
-gRPC使用 Protocol Buffers 作为其默认的序列化协议，支持多种编程语言，如C++、Java、Python、Go等。
-
-
-grpc 官网：https://grpc.io/
-
-![](./assets/grpc.png)
+<a href="https://grpc.io/docs/languages/go/quickstart/" target="_blank">【Go 语言】 快速开始</a>
 
 
-golang 使用 grpc 快速开始：
-https://grpc.io/docs/languages/go/quickstart/
+## proto 文件
+
+<a href="https://protobuf.dev/getting-started/gotutorial/" target="_blank">【Go 语言】 编写参考</a>
 
 
-
-**环境搭建**
-
-1. 需要 go 环境
-2. 需要安装 proto buffer 编译器 protoc 
-
-    官网：https://protobuf.dev/
-
-    安装 protoc https://github.com/protocolbuffers/protobuf/releases
-
-    ![](./assets/protoc.png)
-
-3. 安装 go 代码生成器
-
-    ```shell
-    go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
-    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
-    ```
+```protobuf
+// 声明语法版本
+syntax = "proto3";
 
 
-编写 proto 文件
+// 生成的 go 文件放在的位置以及包名
+// "path;package_name" path :生成的文件存放的位置，
+// package_name 指定生成的代码的包名
+option go_package = "grpc;server";
+
+// 定义 rpc 服务名称
+service Ping {
+  // 定义服务提供的方法签名
+  rpc Ping(PingRequest) returns (PingResponse){}
+}
 
 
-## 编写 proto 文件
+// 定义 rpc 服务所使用的消息
+// 会被转化成 type PingRequest struct 
+message PingRequest{
 
-[点击查看 proto 文件](proto/ping.proto)
+}
+
+message PingResponse{
+  string msg = 1;
+}
+```
 
 
-## 生成 message 代码
-
-protoc --go_out=. ping.proto 
-
-
-[点击查看 ping.db.go 文件](server/ping.pb.go)
-
-## 生成 rpc 代码
-
-protoc --go-rpc_out=. ping.proto
-
-[点击查看 ping_grpc.db.go 文件](server/ping_grpc.pb.go)
 
 
