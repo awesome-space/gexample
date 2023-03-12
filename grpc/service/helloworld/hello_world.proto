@@ -1,0 +1,29 @@
+// 声明语法版本
+syntax = "proto3";
+
+
+package helloworld;
+
+// 生成的 go 文件放在的位置以及包名
+// "path;package_name" path :生成的文件存放的位置，
+// package_name 指定生成的代码的包名
+option go_package = "service/helloworld";
+
+
+// 定义 rpc 服务名称
+service HelloWorld {
+  // 定义服务提供的方法签名
+  rpc SayHello(HelloRequest) returns (HelloReply){}
+}
+
+
+// SayHello 的参数
+message HelloRequest {
+  string name = 1;
+}
+
+
+// SayHello 的返回值
+message HelloReply {
+  string message = 1;
+}
