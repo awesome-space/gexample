@@ -89,7 +89,7 @@ type HelloWorldServer interface {
 // 我们可以在 UnimplementedHelloWorldServer 中完善方法的实现，这样会破坏生成的文件
 // 如果我们的服务如果还有迭代的可能，在下一次生成 grpc 代码时有被覆盖的风险
 // 也可以在另外的包或者文件里定义一个新的 struct 嵌入 UnimplementedHelloWorldServer 将具体实现移交给子结构体，不破坏生成的文件，
-// 之后再次生成 grpc 代码时，不会被覆盖，推荐这种方式 
+// 之后再次生成 grpc 代码时，不会被覆盖，推荐这种方式
 type UnimplementedHelloWorldServer struct {
 }
 
@@ -116,9 +116,71 @@ func RegisterHelloWorldServer(s grpc.ServiceRegistrar, srv HelloWorldServer) {
 }
 ```
 
+### 启动 Rpc 服务器
+
+```go
+
+// 嵌入 UnimplementedHelloWorldServer 实现 HelloWorldServer 接口
+type HelloWorldServer struct {
+	helloworld.UnimplementedHelloWorldServer
+}
+
+// 重写 SayHello 方法，覆盖  UnimplementedHelloWorldServer 中的方法
+func (s *HelloWorldServer) SayHello(ctx context.Context, in *helloworld.HelloRequest) (*helloworld.HelloReply, error) {
+	log.Printf("Received: %v", in.GetName())
+	return &helloworld.HelloReply{Message: "Hello " + in.GetName()}, nil
+}
+
+func main(){
+  // 监听 50051 端口号
+  lis, err := net.Listen("tcp", ":50051")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+  // 实例化一个 grpc 服务器
+	s := grpc.NewServer()
+  // 将 HelloWorldServer 服务注册进服务器
+	helloworld.RegisterHelloWorldServer(s, &HelloWorldServer{})
+	log.Printf("server listening at %v", lis.Addr())
+  // 启动 grpc 服务器
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
+}
+```
+
+### grpc 客户端使用
 
 
-service 的具体实现。
+```go
+  // 连接 grpc 服务器
+	conn, err := grpc.Dial("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+  // 创建一个 Helloworld 服务客户端
+	c := helloworld.NewHelloWorldClient(conn)
+	// 创建一个有超时功能的 context， 一秒中得不到响应
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := c.SayHello(ctx, &helloworld.HelloRequest{Name: *name})
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Printf("Greeting: %s", r.GetMessage())
+```
 
-我们可以直接在 `hello_world_grpc.pb.go` 文件里修改，即修改上面代码块中的 `SayHello` 方法。
-也可以从写一个 struct 来内嵌 HelloWorldServer 这个 struct。然后将它注册进 grpcServer 中
+
+### 运行
+依次运行 server/main.go 以及 client/main.go
+
+
+server output:
+2023/03/13 11:39:41 server listening at [::]:50051
+2023/03/13 13:31:03 Received: world
+
+client output:
+2023/03/13 13:31:03 Greeting: Hello world
+
+
